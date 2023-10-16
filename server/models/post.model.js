@@ -15,10 +15,18 @@ const postSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    // comments: [{
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'Comment'
-    // }]
+    comments: [{
+      postedBy:{
+        type: mongoose.Schema.Types.ObjectId,ref:'User'
+      },
+        text:String,
+        created: {type:Date,default :Date.now}
+      }],
+      Like: [{
+        type: String,
+        enum: ['like', 'dislike'],
+        likedAt: { type: Date, default: Date.now },
+      }]
     // Duhen shtuar te tjera
   }, { timestamps: true });
   

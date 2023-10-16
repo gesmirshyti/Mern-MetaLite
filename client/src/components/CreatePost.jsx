@@ -14,21 +14,21 @@ export default function CreatePost() {
   };
 
   const handleCreatePost = () => {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      console.error("User ID is missing.");
-      return;
-    }
+    // const userId = localStorage.getItem('userId');
+    // if (!userId) {
+    //   console.error("User ID is missing.");
+    //   return;
+    // }
     const postData = {
       title: post.title,
       content: post.content,
-      author: userId, // id e autorit/userit
+      // author: userId, // id e autorit/userit
     };
     axios.post("http://localhost:8000/api/profile/createPost", postData)
       .then((response) => {
         console.log("Post created:", response.data);
-        navigate('/profile/posts?userId=' + userId);
-            })
+        navigate('/');  
+      })
       .catch((error) => {
         console.error("Error creating post:", error);
       });

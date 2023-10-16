@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
-const Login = ({ setStateLoged,userId }) => {
+const Login = ({ setStateLoged,onLogin }) => {
     const navigate = useNavigate()
     //keep track of what is being typed via useState hook
 
@@ -25,13 +25,17 @@ const Login = ({ setStateLoged,userId }) => {
             .then(res => {
                 console.log(res); // always console log to get used to tracking your data!
                 console.log(res.data);
-
                 setVal({})
                 localStorage.setItem('isLogedIn', true);
-                const userId = response.data.userId; // Replace this with how you extract the user ID from the login response
-localStorage.setItem('userId', userId);
                 setStateLoged(true)
+                
+                if (res.data.userId) {
+                    onLogin(res.data.userId);
+                  }
                 navigate("/")
+                        if (res.data.userId) {
+          onLogin(res.data.userId);
+        }
             })
             .catch(err => { console.log(err); err.response.data.errors ? setVal(err.response.data.errors) : console.log(err) })
     }

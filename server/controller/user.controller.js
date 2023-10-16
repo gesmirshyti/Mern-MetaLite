@@ -37,3 +37,47 @@ module.exports.login = async (req, res) => {
     res.cookie("usertoken", userToken, { httpOnly: true });
     res.status(200).json({ msg: "success!" });
 };
+
+
+module.exports.getAllUsers = (request, response) => {
+    User.find({}).sort({ name: 'asc' })
+        .then(persons => {
+            response.json(persons);
+        })
+        .catch(err => {
+            response.json(err)
+        })
+}
+module.exports.deleteUser = (request, response) => {
+
+    User.findOne({ _id: request.params.id })
+        .then(person =>
+            person.role == "teacher" ? User.deleteOne({ _id: request.params.id }) //note: "id" here MUST match id in corresponding route
+                .then(deleteConfirmation => {
+                    return User.findOneAndUpdate({ role: "student" }, { role: "teacher" }, { new: true })
+                        .then(updatedPerson => response.json(updatedPerson))
+                        .catch(err => response.json(err))
+                })
+                .catch(err => response.json(err)) :
+                User.deleteOne({ _id: request.params.id }) //note: "id" here MUST match id in corresponding route
+                    .then(deleteConfirmation => response.json(deleteConfirmation))
+                    .catch(err => response.json(err)
+
+
+                    ))
+        .catch(err => response.json(err));
+
+}
+
+module.exports.getUser = (request, response) => {
+    User.findOne({ _id: request.params.id })
+        .then(person => response.json(person))
+        .catch(err => response.json(err));
+}
+
+module.exports.updateUser = (request, response) => {
+
+    User.findOneAndUpdate({ _id: request.params.id }, request.body, { new: true })
+        .then(updatedPerson => response.json(updatedPerson))
+        .catch(err => response.status(300).json(err));
+    }

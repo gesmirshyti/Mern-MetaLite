@@ -1,4 +1,5 @@
 import React from 'react'
+import ProfileImages from './ProfileImages';
 import 
 { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
  from 'react-icons/bs'
@@ -57,7 +58,7 @@ function Profile() {
     <div>
       <ResponsiveContainer width="100%" height={300}>
         <div className='Profile-info d-flex'>
-          <img className='profile-image' src="https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg"  alt="" />
+          <img className='profile-image' src="https://cdn-icons-png.flaticon.com/512/149/149071.png"  alt="" />
           <h3 className='profile-description d-flex'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, quis!</h3>
           <p className='profile-description d-flex'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, quis!</p>
         </div>
@@ -148,6 +149,8 @@ function Profile() {
 
         </div>
     </main>
+    <ProfileImages></ProfileImages>
+
     </div>
   )
 }

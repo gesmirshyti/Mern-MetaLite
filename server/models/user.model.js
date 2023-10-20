@@ -12,8 +12,15 @@ email: { type: String,
     } },
 password: { type: String,
         required:[true,"Password is required"] },
-    // imgUrl: { type: String,
-    //     required:[true,"imgUrl kerkohet"] }  ,
+userId : { 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+}, 
+description:{type:String},
+userImage: {
+    data: Buffer,
+    contentType: String,
+  }
 }, { timestamps: true });
 
 

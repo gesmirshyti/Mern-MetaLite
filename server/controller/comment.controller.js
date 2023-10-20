@@ -1,6 +1,5 @@
-const Comment = require('../models/post.model'); // Import the Comment model
+const Comment = require('../models/comment.model'); // Import the Comment model
 
-// Create a new comment
 exports.createComment = async (req, res) => {
   try {
     const { text, author, post } = req.body;
@@ -20,19 +19,17 @@ exports.createComment = async (req, res) => {
   }
 };
 
-// Retrieve comments for a specific post
-exports.getCommentsByPost = async (req, res) => {
-  try {
-    const postId = req.params.id; // Get the post ID from the URL
-    const comments = await Comment.find({ post: postId }).populate('author');
+// exports.getCommentsByPost = async (req, res) => {
+//   const postId = req.params.id; 
 
-    if (!comments) {
-      return res.status(404).json({ message: 'No comments found for this post' });
-    }
-
-    res.status(200).json(comments);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-};
+//   Post.findById(postId)
+//     .populate('comments') 
+//     .exec((err, post) => {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//       } else {
+//         res.json(post.comments); 
+//       }
+//     });
+// };

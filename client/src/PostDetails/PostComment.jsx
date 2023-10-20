@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 
 const PostComment = ({ comments, postId,userId }) => {
-  const [comment, setComment] = useState({ comment: '' });
+const [comment, setComment] = useState({ comment: '' });
 
   // const [searchParams] = useSearchParams();
   // const userId = searchParams.get('userId');
@@ -18,15 +18,16 @@ const PostComment = ({ comments, postId,userId }) => {
 
   const handleComments = () => {
     const commentData = {
-      text: comment.comment, // Use 'text' instead of 'comment'
-      author: userId, // Pass the 'author' (user) ID
-      post: postId, // Pass the 'post' (post) ID
+      text: comment.comment, 
+      postedBy: userId, 
+      post: postId,
     };
 
-    axios.post("http://localhost:8000/api/home/comments/create", commentData)
+    axios.post("http://localhost:8000/api/home/comments/create/", commentData)
     .then((res) => {
       console.log("Comment Created", res.data);
-      setComment({ comment: '' }); // Reset the input field
+      setComment({ comment: '' }); 
+      // localStorage.getItem('postId', res.data.postId);
     })
     .catch((err) => {
       console.error("Error creating comment:", err);
@@ -34,8 +35,8 @@ const PostComment = ({ comments, postId,userId }) => {
   };
 
   return (
-    <div>
-      <Button>Comments:</Button>
+    <div className='d-flex'>
+      <label>Comments:</label>
       <TextField
         label="Comment"
         name="comment"
@@ -45,8 +46,8 @@ const PostComment = ({ comments, postId,userId }) => {
       <ul>
         {comments.map((comment) => (
           <li key={comment._id}>
-            <p>{comment.text}</p>
-            <p>Posted by: {comment.author}</p>
+            {/* <p>{comment.comment}</p> */}
+            {/* <p>Posted by: {comment.postedBy.name}</p> */}
           </li>
         ))}
       </ul>

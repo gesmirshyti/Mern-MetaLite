@@ -10,7 +10,6 @@ const CommentList = ({ comments }) => {
             <p>{comment.text}</p>
             <p>Posted by: {comment.author}</p>
             <p>Posted on: {new Date(comment.created).toDateString()}</p>
-            {/* You can display other comment information here */}
           </li>
         ))}
       </ul>

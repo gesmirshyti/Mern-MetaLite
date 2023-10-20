@@ -3,6 +3,13 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
 require('dotenv').config();
 
+
+// const getToken =(user)=>{
+//     const payload = {
+        
+//     }
+// }
+
 module.exports.register = (req, res) => {
     console.log("This comes from Register")
     console.log(process.env.FIRST_SECRET_KEY)
@@ -35,7 +42,7 @@ module.exports.login = async (req, res) => {
     }
     const userToken = jwt.sign({ id: user._id }, process.env.FIRST_SECRET_KEY);
     res.cookie("usertoken", userToken, { httpOnly: true });
-    res.status(200).json({ msg: "success!" });
+    res.status(200).json({ msg: "success!",userId:user._id });
 };
 
 
@@ -48,6 +55,14 @@ module.exports.getAllUsers = (request, response) => {
             response.json(err)
         })
 }
+
+module.exports.updateUser = (request, response) => {
+    Product.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
+        .then(user => response.json(user))
+        .catch(err => response.json(err))
+  }
+
+  
 module.exports.deleteUser = (request, response) => {
 
     User.findOne({ _id: request.params.id })
@@ -74,10 +89,3 @@ module.exports.getUser = (request, response) => {
         .then(person => response.json(person))
         .catch(err => response.json(err));
 }
-
-module.exports.updateUser = (request, response) => {
-
-    User.findOneAndUpdate({ _id: request.params.id }, request.body, { new: true })
-        .then(updatedPerson => response.json(updatedPerson))
-        .catch(err => response.status(300).json(err));
-    }

@@ -1,51 +1,48 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+// import axios from 'axios';
 
-const LikeDislike = () => {
-  const [totalLikes, setTotalLikes] = useState(0);
-  const [likeClicked, setLikeClicked] = useState(false);
-  const [dislikeClicked, setDislikeClicked] = useState(false);
+// const LikeDislike = ({postId}) => {
+//   const [totalLikes, setTotalLikes] = useState(0);
+//   const [likeClicked, setLikeClicked] = useState(false);
 
-  const handleLike = (e) => {
-    e.preventDefault()
-    if (!likeClicked) {
-      setTotalLikes(totalLikes + 1);
-      setLikeClicked(true);
-      if (dislikeClicked) {
-        setDislikeClicked(false);
-        setTotalLikes(totalLikes + 1); // Adjust for changing from dislike to like
-      }
-    } else {
-      setTotalLikes(totalLikes - 1);
-      setLikeClicked(false);
-    }
-  };
+//   const handleLike = (e) => {
+//     e.preventDefault()
 
-  const handleDislike = (e) => {
-    e.preventDefault()
-    if (!dislikeClicked) {
-      setTotalLikes(totalLikes - 1);
-      setDislikeClicked(true);
-      if (likeClicked) {
-        setLikeClicked(false);
-        setTotalLikes(totalLikes - 1); // Adjust for changing from like to dislike
-      }
-    } else {
-      setTotalLikes(totalLikes + 1);
-      setDislikeClicked(false);
-    }
-  };
+//     if (!likeClicked) {
+//       console.log(postId)
+//       axios.post(`http://localhost:8000/api/posts/like/${postId}`,{},{withCredentials:true})
+//       .then((response) => {
 
-  return (
-    <div>
-      <button onClick={handleLike} style={{ backgroundColor: likeClicked ? 'lightblue' : 'white' }}>
-        Like
-      </button>
-      <button onClick={handleDislike} style={{ backgroundColor: dislikeClicked ? 'red' : 'white' }}>
-        Dislike
-      </button>
-      <span>Total Likes: {totalLikes}</span>
-    </div>
-  );
-};
+//       setTotalLikes(totalLikes + 1);
+//       setLikeClicked(true);
+//       console.log(response.data)
+//       if (dislikeClicked) {
+//         axios.post(`http://localhost:8000/api/posts/dislike/${postId}`,{},{withCredentials:true})
 
-export default LikeDislike;
+//         setDislikeClicked(false);
+//         setTotalLikes(totalLikes + 1); 
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Error liking the post:", error);
+//     });
+//     } else {
+//       setTotalLikes(totalLikes - 1);
+//       setLikeClicked(false);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <button onClick={handleLike} style={{ backgroundColor: likeClicked ? 'lightblue' : 'white' }}>
+//         Like
+//       </button>
+//       <button onClick={handleDislike} style={{ backgroundColor: dislikeClicked ? 'red' : 'white' }}>
+//         Dislike
+//       </button>
+//       <span>Total Likes: {totalLikes}</span>
+//     </div>
+//   );
+// };
+
+// export default LikeDislike;

@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
-  text: String,
-  author: {
+  text: {type:String},
+  postedBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Reference to the User model if needed
+    ref: 'User', 
   },
-  post: {
+  post:{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post', // Reference to the Post model if needed
-  },
+    ref: 'Post',
+    },
   created: {
     type: Date,
     default: Date.now,

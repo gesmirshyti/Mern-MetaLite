@@ -5,28 +5,40 @@ const bcrypt = require('bcrypt');
 const postSchema = new mongoose.Schema({
     title: {
       type: String,
-      required: true,
+      required:[true,"Post Title is required"],
     },
     content: {
       type: String,
-      required: true,
+      required:[true,"Post Content is required"],
     },
+    image: {
+      type: String,
+    },
+    postDescription:{
+      type:String,
+      required:[true,"Post Description is required"],
+    }
+,
+
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
     comments: [{
       postedBy:{
-        type: mongoose.Schema.Types.ObjectId,ref:'User'
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'User'
       },
-        text:String,
-        created: {type:Date,default :Date.now}
+      post:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Post'
+      },
       }],
-      Like: [{
-        type: String,
-        enum: ['like', 'dislike'],
-        likedAt: { type: Date, default: Date.now },
-      }]
+
+    likes: [{
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        }],
     // Duhen shtuar te tjera
   }, { timestamps: true });
   

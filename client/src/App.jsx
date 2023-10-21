@@ -16,6 +16,7 @@ import SignUp from './authentication/SignUp';
 import PostDetails from './PostDetails/PostDetails';
 import RecipeReviewCard from './PostDetails/Card';
 import { Card } from '@mui/material';
+import UpdatePost from './PostDetails/UpdatePost';
 // import ProfileImages from './ProfileDetails/ProfileImages';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <Route path="/profile/createPost" default element={<CreatePost />} />
             <Route path="/profile/home" default element={<RecipeReviewCard />} />
             <Route path="/profile/post/detail/:id" default element={<PostDetails />} />
+            <Route path="/profile/post/details/edit/:id" default element={<UpdatePost />} />
 
             <Route path="/signin" default element={<SignIn/>} />
             {/* <Route path="/profile/user/update" default element={<UpdateUser/>} /> */}

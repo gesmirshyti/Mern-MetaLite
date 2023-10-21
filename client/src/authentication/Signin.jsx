@@ -19,7 +19,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="# ">
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -27,8 +27,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -54,7 +52,8 @@ export default function SignIn({ setStateLogged: setStateLogged,onLogin }) {
     localStorage.setItem('isLoggedIn', true);
     setStateLogged(true)
     localStorage.setItem('userId',res.data.userId);
-    console.log(userId)
+    localStorage.setItem('name', res.data.name);
+    console.log("userID : " ,userId)
     navigate("/profile/home")
     
 

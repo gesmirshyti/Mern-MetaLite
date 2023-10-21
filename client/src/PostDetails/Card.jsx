@@ -26,6 +26,8 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+import CreateComment from './CreateComment';
+import CommentList from './CommentList';
 
 
 export default function RecipeReviewCard() {
@@ -59,14 +61,35 @@ export default function RecipeReviewCard() {
             console.log(err);
           });
         }
-  const toggleExpand = () => {
-    setExpanded(!expanded);
-  };
+        
+        const handleLike = (postId) => {
+          // Send a request to like the post
+          axios
+            .post(`http://localhost:8000/api/posts/like/${postId}`, null, { withCredentials: true })
+            .then((res) => {
+              setUpdated(!updated);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+      }
+  
+      const handleUnlike = (postId) => {
+          // Send a request to unlike the post
+          axios
+            .post(`http://localhost:8000/api/posts/dislike/${postId}`, null, { withCredentials: true })
+            .then((res) => {
+              setUpdated(!updated);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+      }
 
 
   return (
     <div className='d-flex'>
-        <div> 
+        {/* <div> 
             <ul className='sidebar'>
             <li className='sidebar-li'><Link style={{ my: 2, color: 'white' ,justifyContent:'center',display:'flex' }} className='Link' ><HomeIcon></HomeIcon> Home  </Link></li>
             <li className='sidebar-li'><Link style={{ my: 2, color: 'white',justifyContent:'center',display:'flex'  }} className='Link'> <PersonIcon></PersonIcon> Profile</Link></li>
@@ -74,7 +97,7 @@ export default function RecipeReviewCard() {
             <li className='sidebar-li'><Link style={{ my: 2, color: 'white',justifyContent:'center',display:'flex'  }} className='Link'><SaveAltIcon></SaveAltIcon> Messages</Link></li>
             <li className='sidebar-li'><Link style={{ my: 2, color: 'white',justifyContent:'center',display:'flex'  }} className='Link'> <LogoutIcon></LogoutIcon> Logout</Link></li>
             </ul>
-        </div>
+        </div> */}
     <div className='post-list'>
     {post.length > 0 ? (
       <ul className="post-ul">
@@ -86,15 +109,17 @@ export default function RecipeReviewCard() {
               <CardHeader
                 avatar={
                   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    R
+                    A
                   </Avatar>
                 }
                 action={
-                 <Button className="delete-post" onClick={(e) => handleDelete(posts._id)}  startIcon={<DeleteIcon />}></Button>
+                 <Button className="delete-post" onClick={(e) => handleDelete(posts._id)}  startIcon={<DeleteIcon />}>
+
+</Button>
 
                   
                 }
-                title={posts.title}
+                title={posts.author}
                 subheader={'created at :'+posts.createdAt}
               />
               <CardMedia
@@ -131,8 +156,8 @@ export default function RecipeReviewCard() {
 </BottomNavigation>
 
             </Card>
-            <PostComment comments={posts.comments} ></PostComment>
-
+            <CreateComment postId={posts._id} comments={posts.comments} ></CreateComment>
+<CommentList postId={posts._id}  comments={posts.comments} ></CommentList>
           </li>
           
         ))}

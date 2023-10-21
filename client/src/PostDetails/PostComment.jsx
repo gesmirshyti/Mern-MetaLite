@@ -35,7 +35,7 @@ const [comment, setComment] = useState({ comment: '' });
   };
 
   return (
-    <div className='d-flex'>
+    <div className=''>
       <label>Comments:</label>
       <TextField
         label="Comment"
@@ -43,15 +43,17 @@ const [comment, setComment] = useState({ comment: '' });
         value={comment.comment}
         onChange={handleCommentChange}
       />
+                        <Button onClick={handleComments}>Add Comment</Button>
+
       <ul>
         {comments.map((comment) => (
           <li key={comment._id}>
+
             {/* <p>{comment.comment}</p> */}
-            {/* <p>Posted by: {comment.postedBy.name}</p> */}
+            <p>Posted by: {comment._id}</p>
           </li>
         ))}
       </ul>
-      <Button onClick={handleComments}>Add Comment</Button>
     </div>
   );
 };

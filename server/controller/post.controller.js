@@ -1,12 +1,9 @@
 const Post = require('../models/post.model'); 
-const Comment = require('../models/comment.model');
-
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
 require('dotenv').config();
 
 module.exports.createPost = (req, res) => {
-
   Post.create(req.body)
   .then((post) => {
     const postId = post._id; 
@@ -38,54 +35,137 @@ module.exports.deletePost = (request, response) => {
             .then(deleteConfirmation => response.json(deleteConfirmation))
             .catch(err => response.json(err))
       }
+module.exports.updatePost = (req,res) =>{
+  Post.findOneAndUpdate({_id: req.params.id}, req.body, {new:true})
+  .then(updated => res.json(updated))
+  .catch(err => res.json(err))
+}
 
-      
-module.exports.createComment = async (req, res) => {
+      module.exports.createComment = async (req, res) => {
         try {
-          const { text, postedBy, post } = req.body;
-          // const postId = localStorage.getItem('postId');
-
-          const comment = new Comment({
-            text,
-            postedBy,
-            post
-          });
-          await comment.save();
+          const { text, postedBy, post,commentAuthor } = req.body;
       
-          const updatedPost = await Post.findOneAndUpdate(
-            { postId: post },
-            { $push: { comments: comment._id } }, 
-            { new: true } 
+          const updatedPost = await Post.findByIdAndUpdate(
+            post, 
+            {
+              $push: {
+                comments: {
+                  text,
+                  postedBy,
+                  commentAuthor
+                },
+              },
+            },
+            { new: true }
           );
       
-          res.status(201).json({ comment, updatedPost });
+          res.status(201).json(updatedPost);
         } catch (error) {
           console.error(error);
           res.status(500).json({ message: 'Internal Server Error' });
         }
       };
+      
 
-  module.exports.addCommentToPost = async (req, res) => {
-    try {
-      const postId = req.params.postId;
-      const post = await Post.findById(postId);
-  
-      if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
+      // module.exports.getCommentsByPostId = async (req, res) => {
+      //   try {
+      //     const postId = req.params.postId;
+      
+      //     const post = await Post.findById(postId);
+      
+      //     if (!post) {
+      //       return res.status(404).json({ message: 'Post not found' });
+      //     }
+      
+      //     // Assuming comments is an array within the post object
+      //     const comments = post.comments;
+      
+      //     res.status(200).json(comments);
+      //   } catch (error) {
+      //     console.error(error);
+      //     res.status(500).json({ message: 'Internal Server Error' });
+      //   }
+      // };
+      
+
+
+
+      module.exports.likePost = async (req, res) => {
+        try {
+          const { postId } = req.body;
+          const { userId } = req.body; 
+      
+          console.log('postId:', postId);
+          console.log('userId:', userId);
+          const updatedPost = await Post.findOneAndUpdate(
+            { _id: postId },
+            { $push: { likes: userId } },
+            { new: true }
+          );
+      
+          if (!updatedPost) {
+            return res.status(404).json({ message: 'Post not found' });
+          }
+      
+          res.status(200).json(updatedPost);
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ message: 'Internal Server Error' });
+        }
+      };
+      
+    
+    module.exports.unlikePost = async (req, res) => {
+        try {
+            const { postId } = req.params;
+            const { userId } = req.body; 
+    
+            const updatedPost = await Post.findByIdAndUpdate(
+                postId,
+                { $pull: { likes: userId } },
+                { new: true }
+            );
+    
+            res.status(200).json(updatedPost);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    };
+
+    exports.getLikedPosts = async (req, res) => {
+      try {
+        const { userId } = req.body; 
+    
+        const likedPosts = await Post.find({ likes: userId });
+    
+        res.status(200).json({ likedPosts });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
       }
+    };
+  // module.exports.addCommentToPost = async (req, res) => {
+  //   try {
+  //     const postId = req.params.postId;
+  //     const post = await Post.findOne({ postId: req.params._id })
   
-      const newComment = await Comment.create(req.body);
-      post.comments.push(newComment);
-      await post.save();
+  //     if (!post) {
+  //       return res.status(404).json({ message: 'Post not found' });
+  //     }
   
-      const comments = await Comment.find({ post: postId });
+  //     const newComment = await Comment.create(req.body);
+  //     post.comments.push(newComment);
+  //     await post.save();
   
-      return res.json(comments);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: 'Internal Server Error' });
-    }
-  };
+  //     const comments = await Comment.find({ post: postId });
+  
+  //     return res.json(comments);
+  //   } catch (error) {
+  //     console.error(error);
+  //     return res.status(500).json({ message: 'Internal Server Error' });
+  //   }
+  // };
   
   
   

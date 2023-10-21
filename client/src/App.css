@@ -264,4 +264,23 @@ border-radius: 20px;
 justify-content: center;
 align-items: center;
 display: flex;
+margin-top: 80px;
+}
+.details-content{
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: 350px;
+  justify-content: space-between;
+  /* margin: 0; */
+}
+.details-p{
+  align-self: flex-start;
+  align-items: end;
+  width: 200px;
+
+}
+.details-h3{
+  max-width: 500px;
+  width: 500px;
 }

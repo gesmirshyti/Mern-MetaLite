@@ -16,7 +16,7 @@ module.exports.register = (req, res) => {
     User.create(req.body)
         .then(user => {
             const userToken = jwt.sign({
-                id: user._id
+                id: user._id,
             }, process.env.FIRST_SECRET_KEY);
             res
                 .cookie("usertoken", userToken, {
@@ -42,7 +42,7 @@ module.exports.login = async (req, res) => {
     }
     const userToken = jwt.sign({ id: user._id }, process.env.FIRST_SECRET_KEY);
     res.cookie("usertoken", userToken, { httpOnly: true });
-    res.status(200).json({ msg: "success!",userId:user._id });
+    res.status(200).json({ msg: "success!",userId:user._id,name: user.name });
 };
 
 

@@ -21,18 +21,23 @@ const postSchema = new mongoose.Schema({
 ,
 
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+     type:String
     },
     comments: [{
+      text:{type:String},
       postedBy:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'User'
       },
+      commentAuthor: {
+        type:String
+       },
       post:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Post'
       },
+      text: {type:String},
+
       }],
 
     likes: [{

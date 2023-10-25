@@ -1,29 +1,23 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, Link, useParams } from 'react-router-dom'; // Remove useSearchParams
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
 import React, { useEffect, useState } from 'react';
-// import Register from './components/Register';
 import LogOut from './authentication/Logout';
-// import Login from './components/Login';
 import Home from './components/Home';
-import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-import Profile from './ProfileDetails/Profile';
 import CreatePost from './PostDetails/CreatePost';
-import PublicPost from './PostDetails/PublicPost';
-import PrivatePost from './ProfileDetails/PrivatePost';
 import SignIn from './authentication/Signin';
 import SignUp from './authentication/SignUp';
 import PostDetails from './PostDetails/PostDetails';
-import RecipeReviewCard from './PostDetails/Card';
-import { Card } from '@mui/material';
+import Posts from './PostDetails/Posts';
 import UpdatePost from './PostDetails/UpdatePost';
-// import ProfileImages from './ProfileDetails/ProfileImages';
-
+import ContactForm from './components/ContactForm';
+import About from './components/About';
+import Profile from './ProfileDetails/Profile';
+import UpdateUser from './ProfileDetails/UpdateUser';
 function App() {
   const loggedIn = localStorage.getItem('isLoggedIn');
   const [stateLogged, setStateLogged] = useState(false);
-  const [userId, setUserId] = useState(null); // Add a state variable for userId
-
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     console.log("App test");
@@ -31,44 +25,46 @@ function App() {
 
   return (
     <BrowserRouter>
+
+
       <div>
-        <Navbar />
+        <Navbar /> <br /><br /><br />
         <LogOut setStateLogged={setStateLogged} stateLogged={stateLogged} />
         {loggedIn ? (
           <Routes>
-            <Route element={<SignUp setStateLogged={setStateLogged} stateLogged={stateLogged} />} path="/register" default />
-            {/* <Route element={<LogOut setStateLogged={setStateLogged} stateLogged={stateLogged} />} path="/register" default /> */}
-
-            {/* <Route element={<Login setStateLogged={setStateLogged} setStateLogged={setStateLogged} onLogin={(userId) => setUserId(userId)} />} path="/login" default /> */}
+            <Route element={<Posts />} path="/register" default />
             <Route path="/" default element={<Home />} />
-            {/* <Route path="/profile/dashboard" default element={<Profile />} /> */}
+            <Route path="/home" default element={<Posts />} />
+            <Route path="/profile/dashboard" default element={<Profile setStateLogged={setStateLogged} stateLogged={stateLogged} />} />
             <Route path="/profile/createPost" default element={<CreatePost />} />
-            <Route path="/profile/home" default element={<RecipeReviewCard />} />
+            <Route path="/profile/home" default element={<Posts />} />
             <Route path="/profile/post/detail/:id" default element={<PostDetails />} />
             <Route path="/profile/post/details/edit/:id" default element={<UpdatePost />} />
-
-            <Route path="/signin" default element={<SignIn/>} />
-            {/* <Route path="/profile/user/update" default element={<UpdateUser/>} /> */}
-            {/* <Route path="/profile/posts" default element={<PrivatePost userId={userId} />} /> */}
-
-            <Route default element={<LogOut />} />
-
+            <Route path="/contact" default element={<ContactForm />} />
+            <Route path="/about" default element={<About />} />
+            <Route path="/profile/dashboard/update/:id" default element={<UpdateUser />} />
+            <Route path="/signin" default element={<Posts />} />
           </Routes>
         ) : (
           <Routes>
             <Route element={<SignUp setStateLogged={setStateLogged} />} path="/register" default />
-            {/* <Route element={<Login setStateLoged={setStateLoged} stateLoged={stateLoged} />} path="/login" default /> */}
-            <Route path="/" default element={<SignUp />} />
-            <Route path="/profile/dashboard" default element={<SignUp />} />
-            <Route path="/profile/createPost" default element={<SignUp setStateLogged={setStateLogged} />} />
+            <Route path="/profile/dashboard" default element={<Home />} />
+            <Route path="/profile/createPost" default element={<Home />} />
+            <Route path="/profile/post/detail/:id" default element={<Home />} />
+            <Route path="/profile/post/details/edit/:id" default element={<Home />} />
+            <Route path="/profile/dashboard/update/:id" default element={<Home />} />
+
             <Route path="/profile/home" default element={<SignUp />} />
-            <Route path="/signin" default element={<SignIn setStateLogged={setStateLogged} stateLogged={stateLogged} onLogin={(userId) => setUserId(userId)}/>} />
+            <Route path="/signin" default element={<SignIn setStateLogged={setStateLogged} stateLogged={stateLogged} onLogin={(userId) => setUserId(userId)} />} />
+            <Route path="/contact" default element={<ContactForm />} />
+            <Route path="/about" default element={<About />} />
+            <Route path="/" default element={<Home />} />
+
           </Routes>
         )}
-        {/* <Footer /> */}
-        
+
+
       </div>
-      {/* <RecipeReviewCard></RecipeReviewCard> */}
     </BrowserRouter>
   );
 }

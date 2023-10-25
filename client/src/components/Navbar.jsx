@@ -13,19 +13,28 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
+const pages = [
+  { label: 'Home', to: '/profile/home' },
+  { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' },
+];
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = [
+  { label: 'Profile', to: '/profile/dashboard' },
+  { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' },
+];
 
-function Navbar() {
+function Navbar({ logOutFunc }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -39,15 +48,15 @@ function Navbar() {
   };
 
   return (
-    <AppBar style={{position:'fixed', top:'0px',left:'0px'}}>
+    <AppBar style={{ position: 'fixed', top: '0px', left: '0px' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={Link} 
+            to="/profile/home"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -58,7 +67,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            MetaLite
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -91,8 +100,8 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
+                  <Link to={page.to}>{page.label}</Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -101,8 +110,8 @@ function Navbar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={Link} 
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -119,11 +128,11 @@ function Navbar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.label}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <Link className='white' to={page.to}>{page.label}</Link>
               </Button>
             ))}
           </Box>
@@ -131,7 +140,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="#" />
               </IconButton>
             </Tooltip>
 
@@ -152,8 +161,8 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.label} onClick={handleCloseUserMenu}>
+                  <Link className='black' to={setting.to}>{setting.label}</Link>
                 </MenuItem>
               ))}
             </Menu>

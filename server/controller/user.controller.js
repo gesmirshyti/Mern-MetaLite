@@ -4,12 +4,6 @@ const bcrypt = require("bcrypt")
 require('dotenv').config();
 
 
-// const getToken =(user)=>{
-//     const payload = {
-        
-//     }
-// }
-
 module.exports.register = (req, res) => {
     console.log("This comes from Register")
     console.log(process.env.FIRST_SECRET_KEY)
@@ -57,35 +51,16 @@ module.exports.getAllUsers = (request, response) => {
 }
 
 module.exports.updateUser = (request, response) => {
-    Product.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
+    User.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
         .then(user => response.json(user))
         .catch(err => response.json(err))
   }
 
   
-module.exports.deleteUser = (request, response) => {
-
-    User.findOne({ _id: request.params.id })
-        .then(person =>
-            person.role == "teacher" ? User.deleteOne({ _id: request.params.id }) //note: "id" here MUST match id in corresponding route
-                .then(deleteConfirmation => {
-                    return User.findOneAndUpdate({ role: "student" }, { role: "teacher" }, { new: true })
-                        .then(updatedPerson => response.json(updatedPerson))
-                        .catch(err => response.json(err))
-                })
-                .catch(err => response.json(err)) :
-                User.deleteOne({ _id: request.params.id }) //note: "id" here MUST match id in corresponding route
-                    .then(deleteConfirmation => response.json(deleteConfirmation))
-                    .catch(err => response.json(err)
-
-
-                    ))
-        .catch(err => response.json(err));
-
-}
 
 module.exports.getUser = (request, response) => {
     User.findOne({ _id: request.params.id })
         .then(person => response.json(person))
         .catch(err => response.json(err));
 }
+

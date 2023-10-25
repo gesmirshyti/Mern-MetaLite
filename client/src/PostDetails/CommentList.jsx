@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const CommentList = ({ comments }) => {
   const [showAllComments, setShowAllComments] = useState(false);
@@ -11,18 +12,21 @@ const CommentList = ({ comments }) => {
 
   return (
     <div>
-      <h3>Comments</h3>
-      <ul>
+      <h4>Comments</h4>
+      <ul >
         {displayedComments.map((comment) => (
-          <li key={comment._id}>
-            <p><h4>{comment.commentAuthor}</h4> :{comment.text}</p>
+          <li className='d-flex' key={comment._id}>
+       
+              <h4>{comment.commentAuthor}</h4> 
+            <p>: {comment.text}</p>
+         
           </li>
         ))}
       </ul>
       {comments.length > 5 && (
-        <button onClick={toggleShowAllComments}>
+        <Link onClick={toggleShowAllComments}>
           {showAllComments ? 'Show Less' : 'See More'}
-        </button>
+        </Link>
       )}
               <p>Total Comments : {comments.length}</p>
 

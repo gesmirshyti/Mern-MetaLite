@@ -16,11 +16,36 @@
 .center{
   align-items: center;
 }
-
-/* span{
-  color: orange;
-} */
-
+.white{
+  color: white;
+}
+.black{
+  color: black;
+}
+.blue{
+  color: #2074d4;
+}
+.center{
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
+.tryNow{
+  display: flex;
+  flex-direction: column;
+justify-content: space-around;
+}
+.home-h1{
+  width: 600px;
+}
+.signIn-Grid{
+  padding: 20px 50px;
+}
+.post-ul .card-title{
+  margin-right: 300px;
+  align-items: end;
+  display: flex;
+}
 .home-container{
   padding: 75px;
 }
@@ -196,8 +221,9 @@
   color: white;
 }
 
-.delete-post{
-  
+.validation{
+  color: red;
+  font-style: italic;
 }
 
 .post-list{
@@ -205,14 +231,14 @@
   align-items: center;
 display: flex;
 padding-left: 550px;
-
 }
-
+.content{
+  max-width: 100%; 
+  word-wrap: break-word;
+}
 .post-li{
   margin: 70px;
   margin-bottom: 50px;
-  /* border: 1px solid black; */
-/* padding: 10px; */
 border: 5px grey;
 }
 .post-card{
@@ -234,21 +260,20 @@ ul{
   list-style: none;
 }
 .sidebar{
-  padding: 100px;
-  margin-right: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   background-color: #2074d4;
   color: white;
   position: fixed;
-  top: 69px;
+  top: 20px;
   left: 0;
   width: 200px;  
-  height: 100%;  
+  height: 100%; 
   padding: 20px; 
   overflow-y: auto; 
 }
-.sidebar-li{
-  padding-top: 70px;
-}
+
 .Link{
   padding: 10px;
 }
@@ -272,7 +297,6 @@ margin-top: 80px;
   width: 100px;
   height: 350px;
   justify-content: space-between;
-  /* margin: 0; */
 }
 .details-p{
   align-self: flex-start;

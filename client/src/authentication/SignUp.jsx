@@ -14,13 +14,14 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Footer from '../components/Footer'; 
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        MetaLite
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -32,7 +33,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignUp({setStateLoged}) {
+export default function SignUp({setStateLogged}) {
     const navigate = useNavigate();
     const [name, setName] = useState(""); 
     const [email, setEmail] = useState("");
@@ -53,7 +54,7 @@ export default function SignUp({setStateLoged}) {
                     console.log(res.data);
     setVal({})
     localStorage.setItem('usertoken', true);
-    setStateLoged(true)
+    setStateLogged(true)
     navigate("/signin")
                 })
                 .catch(err=>{ console.log(err);err.response.data.errors? setVal(err.response.data.errors): console.log(err)})
@@ -62,7 +63,7 @@ export default function SignUp({setStateLoged}) {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid className='signIn-Grid' container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item
@@ -95,20 +96,21 @@ export default function SignUp({setStateLoged}) {
               Sign Up
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            { val.name? <p>{val.name.message}</p> : "" }
+            { val.name? <span className='validation'>{val.name.message}</span> : "" }
+            
             <TextField
             margin="normal"
             required
             fullWidth
             autoFocus
-            label="Username"
+            label="Name"
             name="name"
             value={name}
             onChange = {(e)=>setName(e.target.value)}
             variant="outlined"
             />
             
-            {val.email ? <p>{val.email.message}</p> : ""}
+            {val.email ? <span className='validation'>{val.email.message}</span> : ""}
               <TextField
                 margin="normal"
                 required
@@ -122,7 +124,7 @@ export default function SignUp({setStateLoged}) {
                 onChange={(e) => setEmail(e.target.value)}
             
             />
-            {val.password ? <p>{val.password.message}</p> : ""}
+            {val.password ? <span className='validation'>{val.password.message}</span> : ""}
 
             <TextField
                 margin="normal"
@@ -137,7 +139,7 @@ export default function SignUp({setStateLoged}) {
                 onChange={(e) => setPassword(e.target.value)}
             
               />
-            { val.confirmPassword? <p>{val.confirmPassword.message}</p> : "" }
+            { val.confirmPassword? <span className='validation'>{val.confirmPassword.message}</span> : "" }
             <TextField
               fullWidth
               label="Confirm Password"
@@ -165,6 +167,7 @@ export default function SignUp({setStateLoged}) {
           </Box>
         </Grid>
       </Grid>
+      <Footer></Footer>
     </ThemeProvider>
   );
 }

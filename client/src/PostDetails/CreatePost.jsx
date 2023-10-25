@@ -8,15 +8,17 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-
+import InputAdornment from '@mui/material/InputAdornment';
+import Footer from "../components/Footer";
 const CreatePost = () => {
   const [post, setPost] = useState({
     title: "",
-    content: "",
+    hashtag: "",
     image: "",
     postDescription: "",
     author:""
   });
+
   const navigate = useNavigate();
   const authorName = localStorage.getItem('name');
 
@@ -28,7 +30,7 @@ const CreatePost = () => {
   const handleCreatePost = () => {
     const postData = {
       title: post.title,
-      content: post.content,
+      hashtag: post.hashtag,
       image: post.image,
       postDescription: post.postDescription,
       author: authorName,
@@ -40,6 +42,7 @@ const CreatePost = () => {
         console.log("Post created:", response.data);
         localStorage.setItem("postId", response.data.postId);
         navigate("/profile/home");
+        
       })
       .catch((error) => {
         console.error("Error creating post:", error);
@@ -47,6 +50,7 @@ const CreatePost = () => {
   };
 
   return (
+    <div>
     <Container component="main" maxWidth="xs">
       <Paper elevation={3} style={{ padding: 20, margin: "20px auto" }}>
         <Typography variant="h5">Create a Post</Typography>
@@ -66,18 +70,21 @@ const CreatePost = () => {
             variant="outlined"
             margin="normal"
             fullWidth
-            multiline
-            rows={4}
-            id="content"
-            label="Content"
-            name="content"
-            value={post.content}
+            id="hashtag"
+            label="Hashtag"
+            name="hashtag"
+            value={post.hashtag}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">#</InputAdornment>,
+            }}
             onChange={handlePostChange}
           />
           <TextField
             variant="outlined"
             margin="normal"
             fullWidth
+            multiline
+            rows={4}
             id="postDescription"
             label="Description"
             name="postDescription"
@@ -94,6 +101,7 @@ const CreatePost = () => {
             value={post.image}
             onChange={handlePostChange}
           />
+          
           <Button
             type="button"
             fullWidth
@@ -106,6 +114,8 @@ const CreatePost = () => {
         </form>
       </Paper>
     </Container>
+          <Footer />
+</div>
   );
 };
 

@@ -19,7 +19,7 @@ export default function Footer() {
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={30}>
+        <Grid container spacing={0}>
           <Grid item xs={12} sm={4}>
             <Typography variant="h5" color="text.primary" fontWeight={'bold'} gutterBottom>
               About Us
@@ -66,7 +66,7 @@ export default function Footer() {
           <Typography variant="body2" color="text.secondary" align="center">
             {"Copyright © "}
             <Link color="inherit" href="https://your-website.com/">
-              Website
+            MetaLite
             </Link>{" "}
             {new Date().getFullYear()}
             {"."}

@@ -17,10 +17,7 @@ userId : {
     ref: 'User',
 }, 
 description:{type:String},
-userImage: {
-    data: Buffer,
-    contentType: String,
-  }
+userImage: {type:String}
 }, { timestamps: true });
 
 
@@ -34,7 +31,6 @@ UserSchema.pre('validate', function(next) {
     }
     next();
 });
-// this should go after 
 UserSchema.pre('save', function(next) {
 bcrypt.hash(this.password, 10)
     .then(hash => {

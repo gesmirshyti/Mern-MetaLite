@@ -7,12 +7,12 @@ const postSchema = new mongoose.Schema({
       type: String,
       required:[true,"Post Title is required"],
     },
-    content: {
+    hashtag: {
       type: String,
-      required:[true,"Post Content is required"],
     },
     image: {
       type: String,
+      required:[true,"Post Image is required"],
     },
     postDescription:{
       type:String,
@@ -40,11 +40,10 @@ const postSchema = new mongoose.Schema({
 
       }],
 
-    likes: [{
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User',
-        }],
-    // Duhen shtuar te tjera
+    // likes: [{
+    //       type: mongoose.Schema.Types.ObjectId,
+    //       ref: 'User',
+    //     }],
   }, { timestamps: true });
   
   module.exports = mongoose.model('Post', postSchema);

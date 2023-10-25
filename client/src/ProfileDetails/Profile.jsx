@@ -1,54 +1,60 @@
 import React from 'react'
-import ProfileImages from './ProfileImages';
 import 
 { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
  from 'react-icons/bs'
  import 
  { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
  from 'recharts';
+ import Footer from '../components/Footer';
+ import { Link } from 'react-router-dom';
+ const userId = localStorage.getItem('userId');
+ const name = localStorage.getItem('name');
+ const description = localStorage.getItem('desc');
+ const userImage = localStorage.getItem('image');
+
 function Profile() {
 
     const data = [
         {
-          name: 'Page A',
-          uv: 4000,
-          pv: 2400,
+          name: 'Day 1',
+          like: 4000,
+          views: 2400,
           amt: 2400,
         },
         {
-          name: 'Page B',
-          uv: 3000,
-          pv: 1398,
+          name: 'Day 2',
+          like: 3000,
+          views: 1398,
           amt: 2210,
         },
         {
-          name: 'Page C',
-          uv: 2000,
-          pv: 9800,
+          name: 'Day 3',
+          like: 2000,
+          views: 9800,
           amt: 2290,
         },
         {
-          name: 'Page D',
-          uv: 2780,
-          pv: 3908,
+          name: 'Day 4',
+          like: 2780,
+          views: 3908,
           amt: 2000,
         },
         {
-          name: 'Page E',
-          uv: 1890,
-          pv: 4800,
+          name: 'Day 5',
+          like: 1890,
+          views: 4800,
           amt: 2181,
         },
         {
-          name: 'Page F',
-          uv: 2390,
-          pv: 3800,
+          name: 'Day 6',
+          like: 2390,
+          views: 3800,
           amt: 2500,
         },
         {
-          name: 'Page G',
-          uv: 3490,
-          pv: 4300,
+          name: 'Day 7',
+          like: 3490,
+          views: 4300,
           amt: 2100,
         },
       ];
@@ -58,12 +64,21 @@ function Profile() {
     <div>
       <ResponsiveContainer width="100%" height={300}>
         <div className='Profile-info d-flex'>
-          <img className='profile-image' src="https://cdn-icons-png.flaticon.com/512/149/149071.png"  alt="" />
-          <h3 className='profile-description d-flex'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, quis!</h3>
-          <p className='profile-description d-flex'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, quis!</p>
+          <div>
+          <img className='profile-image ' src={userImage} alt="upload profile" />
+          <h3 className='profile-description d-flex'>Profile of {name} </h3>
+          <Link className='profile-description d-flex' to={`/profile/dashboard/update/${userId}`}>Update Profile</Link>
+
+          </div>
+          <h3 className='profile-description d-flex'>Description: </h3>
+          <p className='profile-description d-flex'> {description}</p>
+
         </div>
+
       </ResponsiveContainer>
+      <br /><br /><br />
     </div>
+    
     <main className='main-container'>
           
 
@@ -77,28 +92,28 @@ function Profile() {
                     <h3>POSTS</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
-                <h1>300</h1>
+                <h1>2</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>VIEWS</h3>
                     <BsFillGrid3X3GapFill className='card_icon'/>
                 </div>
-                <h1>12</h1>
+                <h1>7</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>FRIENDS</h3>
                     <BsPeopleFill className='card_icon'/>
                 </div>
-                <h1>33</h1>
+                <h1>1</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>MESSAGES</h3>
                     <BsFillBellFill className='card_icon'/>
                 </div>
-                <h1>42</h1>
+                <h1>0</h1>
             </div>
         </div>
 
@@ -120,8 +135,8 @@ function Profile() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-                <Bar dataKey="uv" fill="#82ca9d" />
+                <Bar dataKey="like" fill="#8884d8" />
+                <Bar dataKey="views" fill="#82ca9d" />
                 </BarChart>
             </ResponsiveContainer>
 
@@ -142,14 +157,14 @@ function Profile() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="like" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="views" stroke="#82ca9d" />
                 </LineChart>
             </ResponsiveContainer>
 
         </div>
     </main>
-    <ProfileImages></ProfileImages>
+    <Footer />
 
     </div>
   )

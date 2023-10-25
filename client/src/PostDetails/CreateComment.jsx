@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import { useSearchParams } from 'react-router-dom';
-
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 
@@ -32,9 +30,10 @@ const handleCommentChange = (e) => {
 
   return (
     <div>
-    <form  className='d-flex' onSubmit={handleComments}>
+    <form  className='d-flex center' onSubmit={handleComments}>
       <h3>Add a comment:</h3>
       <TextField
+      className='center'
         type="text"
         value={comment}
         onChange={handleCommentChange}

@@ -7,7 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
+import Footer from '../components/Footer'; 
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -46,34 +46,27 @@ export default function SignIn({ setStateLogged: setStateLogged,onLogin }) {
 }, { withCredentials: true })
 
 .then(res => {
-    console.log(res); // always console log to get used to tracking your data!
+    console.log(res);
     console.log(res.data);
     setVal({})
-    localStorage.setItem('isLoggedIn', true);
-    setStateLogged(true)
     localStorage.setItem('userId',res.data.userId);
     localStorage.setItem('name', res.data.name);
+    localStorage.setItem('isLoggedIn', true);
+    setStateLogged(true)
+    navigate("/home")
     console.log("userID : " ,userId)
-    navigate("/profile/home")
-    
-
-    
+    navigate("/home")
             if (res.data.userId) {
 onLogin(res.data.userId);
 }
 })
 .catch(err => { console.log(err); err.response.data.errors ? setVal(err.response.data.errors) : console.log(err) })
 }
-//     const data = new FormData(e.currentTarget);
-//     console.log({
-//       email: data.get('email'),
-//       password: data.get('password'),
-//     });
-//   };
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container className='signIn-Grid' component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item
@@ -106,7 +99,7 @@ onLogin(res.data.userId);
               Sign in
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            {val.email ? <p>{val.email.message}</p> : ""}
+            {val.email ? <span className='validation'>{val.email.message}</span> : ""}
               <TextField
                 margin="normal"
                 required
@@ -121,6 +114,8 @@ onLogin(res.data.userId);
                 onChange={(e) => setEmail(e.target.value)}
             
               />
+              {val.password ? <span className='validation'>{val.password.message}</span> : ""}
+
               <TextField
                 margin="normal"
                 required
@@ -154,6 +149,7 @@ onLogin(res.data.userId);
           </Box>
         </Grid>
       </Grid>
+      <Footer></Footer>
     </ThemeProvider>
   );
 }

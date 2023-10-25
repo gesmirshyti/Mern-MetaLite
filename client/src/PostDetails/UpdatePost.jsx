@@ -8,12 +8,13 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
+import InputAdornment from '@mui/material/InputAdornment';
 
 const UpdatePost = () => {
   const { id } = useParams();
   const [post, setPost] = useState();
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [hashtag, setHashtag] = useState("");
   const [postDescription, setPostDescription] = useState("");
   const [valid, setValid] = useState(true);
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const UpdatePost = () => {
 
   const handleContentChange = (e) => {
     const newContent = e.target.value;
-    setContent(newContent);
+    setHashtag(newContent);
         setValid(/^[A-Za-z\s]+$/.test(newTitle) && newTitle.length > 0);
   };
 
@@ -50,7 +51,7 @@ const UpdatePost = () => {
       axios
         .patch(`http://localhost:8000/api/post/details/edit/${id}`, {
           title,
-          content,
+          hashtag,
           postDescription,
         })
         .then((res) => {
@@ -84,21 +85,23 @@ const UpdatePost = () => {
               variant="outlined"
               margin="normal"
               fullWidth
-              multiline
-              rows={4}
-              id="content"
-              label="Content"
-              name="content"
-              value={content}
+              id="hashtag"
+              label="Hashtag"
+              name="hashtag"
+              value={hashtag}
               onChange={handleContentChange}
               error={!valid}
               helperText={!valid ? "Title is required and must contain only letters." :""}
-           
+              InputProps={{
+                startAdornment: <InputAdornment position="start">#</InputAdornment>,
+              }}
             />
             <TextField
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline
+              rows={4}
               id="postDescription"
               label="Description"
               name="postDescription"
